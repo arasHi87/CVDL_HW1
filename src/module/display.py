@@ -6,8 +6,9 @@ from PyQt5.QtWidgets import QLabel, QMainWindow, QSlider, QVBoxLayout, QWidget
 
 class DisplayWindow(QMainWindow):
     def __init__(self, parent=None):
-        super(DisplayWindow, self).__init__(parent)
+        super().__init__(parent)
 
+        self.slider = QSlider(Qt.Horizontal)
         self.public_frame = QLabel()
         self.widget = QWidget()
         self.layout = QVBoxLayout()
@@ -34,7 +35,6 @@ class DisplayWindow(QMainWindow):
         self.public_frame.setPixmap(QPixmap.fromImage(q_image))
 
     def add_img_to_window_with_slider(self, cv_img1, cv_img2):
-        self.slider = QSlider(Qt.Horizontal)
         self.slider.setRange(0, 255)
         self.slider.valueChanged.connect(
             lambda: self.slider_value_change(cv_img1, cv_img2)
