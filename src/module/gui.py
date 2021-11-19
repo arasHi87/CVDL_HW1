@@ -3,6 +3,7 @@ from functools import partial
 from PyQt5.QtWidgets import QMainWindow, QPushButton
 
 from .process import Process
+from .smoothing import Smoothing
 
 
 class Window(QMainWindow):
@@ -54,13 +55,17 @@ class Window(QMainWindow):
 
     def _executor(self, i, j):
         _process = Process(self)
+        _smoothing = Smoothing(self)
         func = [
             [
                 getattr(_process, "load_img"),
                 getattr(_process, "color_seperation"),
                 getattr(_process, "color_transformations"),
                 getattr(_process, "blending"),
-            ]
+            ],
+            [
+                getattr(_smoothing, "gaussian_blur"),
+            ],
         ]
 
         if i < len(func) and j < len(func[i]):
