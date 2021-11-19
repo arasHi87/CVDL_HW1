@@ -65,6 +65,7 @@ class Window(QMainWindow):
             ],
             [
                 getattr(_smoothing, "gaussian_blur"),
+                getattr(_smoothing, "bilateral_blur"),
             ],
         ]
 
