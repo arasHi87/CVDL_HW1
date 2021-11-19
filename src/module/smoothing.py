@@ -16,7 +16,7 @@ class Smoothing:
         self.display.add_img_to_window(result)
         self.display.show()
 
-    def bilateral_blur(self):
+    def bilateral_filter(self):
         result = cv2.bilateralFilter(self.img[0], 9, 90, 90)
         self.display.add_img_to_window(result)
         self.display.show()
