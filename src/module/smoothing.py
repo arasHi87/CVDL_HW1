@@ -20,3 +20,9 @@ class Smoothing:
         result = cv2.bilateralFilter(self.img[0], 9, 90, 90)
         self.display.add_img_to_window(result)
         self.display.show()
+
+    def median_filter(self):
+        for i in [3, 5]:
+            result = cv2.medianBlur(self.img[1], i)
+            self.display.add_img_to_window(result)
+        self.display.show()

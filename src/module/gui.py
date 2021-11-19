@@ -66,6 +66,7 @@ class Window(QMainWindow):
             [
                 getattr(_smoothing, "gaussian_blur"),
                 getattr(_smoothing, "bilateral_filter"),
+                getattr(_smoothing, "median_filter"),
             ],
         ]
 
