@@ -23,21 +23,19 @@ class DisplayWindow(QMainWindow):
         ).rgbSwapped()
         return QPixmap.fromImage(q_image)
 
-    def add_img_to_window(self, cv_img):
+    def add_img_to_window(self, img):
         # add new label to insert image
         img_frame = QLabel()
         self.layout.addWidget(img_frame)
-        img_frame.setPixmap(self.convert_img(cv_img))
+        img_frame.setPixmap(self.convert_img(img))
 
-    def add_img_to_window_with_slider(self, cv_img1, cv_img2):
+    def add_img_to_window_with_slider(self, img1, img2):
         self.slider.setRange(0, 255)
-        self.slider.valueChanged.connect(
-            lambda: self.slider_value_change(cv_img1, cv_img2)
-        )
+        self.slider.valueChanged.connect(lambda: self.slider_value_change(img1, img2))
         self.layout.addWidget(self.slider)
-        self.slider_value_change(cv_img1, cv_img2)
+        self.slider_value_change(img1, img2)
 
-    def slider_value_change(self, cv_img1, cv_img2):
+    def slider_value_change(self, img1, img2):
         value = self.slider.value() / 255
-        result = cv2.addWeighted(cv_img1, 1 - value, cv_img2, value, 0)
+        result = cv2.addWeighted(img1, 1 - value, img2, value, 0)
         self.public_frame.setPixmap(self.convert_img(result))
