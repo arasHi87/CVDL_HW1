@@ -17,13 +17,13 @@ class Detection:
                 [0.045, 0.122, 0.045],
             ]
         )
-        _img = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
+        img = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
         k_h, k_w = kernel.shape  # kernel heigh and width
-        o_h, o_w = _img.shape  # origin heigh and width
+        o_h, o_w = img.shape  # origin heigh and width
         p_h, p_w = (k_h - 1) // 2, (k_w - 1) // 2  # pad heigh and width
         result = np.zeros(shape=(o_h, o_w), dtype=np.uint8)
-        _img = np.pad(
-            _img,
+        img = np.pad(
+            img,
             pad_width=[(p_h, p_h), (p_w, p_w)],
             mode="constant",
             constant_values=0,
@@ -32,7 +32,7 @@ class Detection:
         for i in range(o_h):
             for j in range(o_w):
                 result[i, j] = np.sum(
-                    np.multiply(_img[i : i + k_h, j : j + k_w], kernel),
+                    np.multiply(img[i : i + k_h, j : j + k_w], kernel),
                     dtype=np.uint8,
                 )
 
