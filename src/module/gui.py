@@ -2,6 +2,7 @@ from functools import partial
 
 from PyQt5.QtWidgets import QMainWindow, QPushButton
 
+from .detection import Detection
 from .process import Process
 from .smoothing import Smoothing
 
@@ -56,6 +57,7 @@ class Window(QMainWindow):
     def _executor(self, i, j):
         _process = Process(self)
         _smoothing = Smoothing(self)
+        _detection = Detection(self)
         func = [
             [
                 getattr(_process, "load_img"),
@@ -67,6 +69,9 @@ class Window(QMainWindow):
                 getattr(_smoothing, "gaussian_blur"),
                 getattr(_smoothing, "bilateral_filter"),
                 getattr(_smoothing, "median_filter"),
+            ],
+            [
+                getattr(_detection, "gaussian_blur"),
             ],
         ]
 
