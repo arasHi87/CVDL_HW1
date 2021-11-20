@@ -16,23 +16,18 @@ class DisplayWindow(QMainWindow):
         self.widget.setLayout(self.layout)
         self.setCentralWidget(self.widget)
 
+    def convert_img(self, img):
+        bytes_per_line = img.shape[1] * 3
+        q_image = QImage(
+            img.data, img.shape[1], img.shape[0], bytes_per_line, QImage.Format_RGB888
+        ).rgbSwapped()
+        return QPixmap.fromImage(q_image)
+
     def add_img_to_window(self, cv_img):
         # add new label to insert image
         img_frame = QLabel()
         self.layout.addWidget(img_frame)
-
-        # init image
-        q_image = QImage(
-            cv_img.data, cv_img.shape[1], cv_img.shape[0], QImage.Format_RGB888
-        ).rgbSwapped()
-        img_frame.setPixmap(QPixmap.fromImage(q_image))
-
-    def add_img_to_public(self, cv_img):
-        # init image
-        q_image = QImage(
-            cv_img.data, cv_img.shape[1], cv_img.shape[0], QImage.Format_RGB888
-        ).rgbSwapped()
-        self.public_frame.setPixmap(QPixmap.fromImage(q_image))
+        img_frame.setPixmap(self.convert_img(cv_img))
 
     def add_img_to_window_with_slider(self, cv_img1, cv_img2):
         self.slider.setRange(0, 255)
@@ -45,5 +40,4 @@ class DisplayWindow(QMainWindow):
     def slider_value_change(self, cv_img1, cv_img2):
         value = self.slider.value() / 255
         result = cv2.addWeighted(cv_img1, 1 - value, cv_img2, value, 0)
-        cv2.imshow("dsa", result)
-        self.add_img_to_public(result)
+        self.public_frame.setPixmap(self.convert_img(result))
