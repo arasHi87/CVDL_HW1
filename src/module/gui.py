@@ -72,6 +72,7 @@ class Window(QMainWindow):
             ],
             [
                 getattr(_detection, "gaussian_blur"),
+                getattr(_detection, "sobel_x"),
             ],
         ]
 
