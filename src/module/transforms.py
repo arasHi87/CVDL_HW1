@@ -9,7 +9,6 @@ class Transforms:
         self.display = DisplayWindow(parent)
 
     def resize(self):
-        print(self.img)
         result = cv2.resize(self.img, (128, 128), interpolation=cv2.INTER_AREA)
         self.display.add_img_to_window(result)
         self.display.show()
