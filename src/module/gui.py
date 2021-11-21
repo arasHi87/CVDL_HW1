@@ -73,6 +73,8 @@ class Window(QMainWindow):
             [
                 getattr(_detection, "gaussian_blur"),
                 getattr(_detection, "sobel_x"),
+                getattr(_detection, "sobel_y"),
+                getattr(_detection, "magnitude"),
             ],
         ]
 
