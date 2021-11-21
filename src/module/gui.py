@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton
 from .detection import Detection
 from .process import Process
 from .smoothing import Smoothing
+from .transforms import Transforms
 
 
 class Window(QMainWindow):
@@ -58,6 +59,7 @@ class Window(QMainWindow):
         _process = Process(self)
         _smoothing = Smoothing(self)
         _detection = Detection(self)
+        _transforms = Transforms(self)
         func = [
             [
                 getattr(_process, "load_img"),
@@ -75,6 +77,9 @@ class Window(QMainWindow):
                 getattr(_detection, "sobel_x"),
                 getattr(_detection, "sobel_y"),
                 getattr(_detection, "magnitude"),
+            ],
+            [
+                getattr(_transforms, "resize"),
             ],
         ]
 
