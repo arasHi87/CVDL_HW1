@@ -80,6 +80,9 @@ class Window(QMainWindow):
             ],
             [
                 getattr(_transforms, "resize"),
+                getattr(_transforms, "translation"),
+                getattr(_transforms, "rotation"),
+                getattr(_transforms, "shearing"),
             ],
         ]
 
