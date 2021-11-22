@@ -36,10 +36,10 @@ class Window(QWidget):
             ["Resize", "Translation", "Rotation, Scaling", "Shearing"],
         ]
         title = [
-            "Image Processing",
-            "Image Smoothing",
-            "Edge Detection",
-            "Transformation",
+            "1. Image Processing",
+            "2. Image Smoothing",
+            "3. Edge Detection",
+            "4. Transformation",
         ]
 
         for i in range(len(msg)):
