@@ -1,6 +1,7 @@
 from functools import partial
 
-from PyQt5.QtWidgets import QMainWindow, QPushButton
+from PyQt5.QtWidgets import (QGroupBox, QHBoxLayout, QPushButton, QVBoxLayout,
+                             QWidget)
 
 from .detection import Detection
 from .process import Process
@@ -8,7 +9,7 @@ from .smoothing import Smoothing
 from .transforms import Transforms
 
 
-class Window(QMainWindow):
+class Window(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -20,40 +21,36 @@ class Window(QMainWindow):
         self._width = 900
 
         # window setting
+        self.layout = QHBoxLayout()
+        self.setLayout(self.layout)
         self.setWindowTitle("HW1")
         self.setGeometry(0, 0, self._width, self._height)
-        self.init_zone()
+        self.init_btn()
         self.show()
 
-    def init_zone(self):
-        self._init_btn()
-
-    def locate_col(self, col):
-        c_spacing = (
-            (self._height - self.padding * 2) / self.col_amount
-        ) * col + self.padding
-        return c_spacing
-
-    def locate_row(self, row):
-        r_spacing = (
-            (self._width - self.padding * 2) / self.row_amount
-        ) * row + self.padding
-        return r_spacing
-
-    def _init_btn(self):
+    def init_btn(self):
         msg = [
             ["Load Image", "Color seoeration", "Color Transformations", "Blending"],
             ["Gaussian Blur", "Bilateral Filter", "Median Filter"],
             ["Gaussian Blur", "Sobel X", "Sobel Y", "Magnitude"],
             ["Resize", "Translation", "Rotation, Scaling", "Shearing"],
         ]
+        title = [
+            "Image Processing",
+            "Image Smoothing",
+            "Edge Detection",
+            "Transformation",
+        ]
 
         for i in range(len(msg)):
+            v_layout = QVBoxLayout()
+            group_box = QGroupBox(title[i])
             for j in range(len(msg[i])):
                 btn = QPushButton(msg[i][j], self)
                 btn.clicked.connect(partial(self._executor, i, j))
-                btn.resize(200, 50)
-                btn.move(self.locate_row(i), self.locate_col(j))
+                v_layout.addWidget(btn)
+            group_box.setLayout(v_layout)
+            self.layout.addWidget(group_box)
 
     def _executor(self, i, j):
         _process = Process(self)
